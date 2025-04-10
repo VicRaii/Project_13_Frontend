@@ -19,7 +19,6 @@ const Home = () => {
           align='center'
           spacing={10}
         >
-          {/* Text Section */}
           <Box flex='1'>
             <Heading
               as='h1'
@@ -55,7 +54,6 @@ const Home = () => {
             </Stack>
           </Box>
 
-          {/* Image Section */}
           <Box flex='1' textAlign='center'>
             <Image
               src='/assets/IECicon.png'

@@ -6,26 +6,23 @@ import Events from './pages/Events'
 import Preachings from './pages/Preachings'
 import Navbar from './components/Navbar'
 import About from './pages/About'
+import LoginRegister from './pages/LoginRegister'
 
 const App = () => {
   return (
     <BrowserRouter>
-      {/* Navbar con logo y navegación */}
       <Navbar />
-
-      {/* Contenedor principal para las rutas */}
       <Box p={4} bg='gray.100' minH='100vh'>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/events' element={<Events />} />
           <Route path='/preachings' element={<Preachings />} />
           <Route path='/about' element={<About />} />
+          <Route path='/auth' element={<LoginRegister />} />
         </Routes>
       </Box>
     </BrowserRouter>
   )
 }
-
-//! NAVBAR ACTUALIZADO
 
 export default App
