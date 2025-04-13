@@ -8,18 +8,19 @@ import {
   useToast
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useReducer } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { authReducer, initialState } from '../hooks/authReducer'
 
 const LoginRegister = () => {
-  const [isLogin, setIsLogin] = useState(true)
-  const [loading, setLoading] = useState(false)
+  const [state, dispatch] = useReducer(authReducer, initialState)
+  const { isLogin, loading } = state
   const { register, handleSubmit, reset } = useForm()
   const toast = useToast()
   const navigate = useNavigate()
 
   const onSubmit = async (data) => {
-    setLoading(true)
+    dispatch({ type: 'SET_LOADING', payload: true })
     try {
       const url = `${import.meta.env.VITE_API_URL}${
         isLogin ? '/users/login' : '/users/register'
@@ -55,7 +56,7 @@ const LoginRegister = () => {
         isClosable: true
       })
     } finally {
-      setLoading(false)
+      dispatch({ type: 'SET_LOADING', payload: false })
     }
   }
 
@@ -86,7 +87,7 @@ const LoginRegister = () => {
 
           <Button
             variant='link'
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={() => dispatch({ type: 'TOGGLE_LOGIN' })}
             colorScheme='blue'
           >
             {isLogin
@@ -98,7 +99,5 @@ const LoginRegister = () => {
     </Box>
   )
 }
-
-//
 
 export default LoginRegister

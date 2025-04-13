@@ -17,7 +17,8 @@ const Links = [
   { name: 'Eventos', path: '/events' },
   { name: 'Predicaciones', path: '/preachings' },
   { name: 'Conócenos', path: '/about' },
-  { name: 'Login', path: '/auth' }
+  { name: 'Login', path: '/auth' },
+  { name: 'Contacto', path: '/contact' }
 ]
 
 const NavLink = ({ name, path }) => (

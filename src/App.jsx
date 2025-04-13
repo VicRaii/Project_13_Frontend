@@ -7,6 +7,8 @@ import Preachings from './pages/Preachings'
 import Navbar from './components/Navbar'
 import About from './pages/About'
 import LoginRegister from './pages/LoginRegister'
+import { ContactForm } from './pages/Contacto'
+import Footer from './components/Footer'
 
 const App = () => {
   return (
@@ -19,8 +21,11 @@ const App = () => {
           <Route path='/preachings' element={<Preachings />} />
           <Route path='/about' element={<About />} />
           <Route path='/auth' element={<LoginRegister />} />
+          <Route path='/contact' element={<ContactForm />} />
         </Routes>
       </Box>
+
+      <Footer />
     </BrowserRouter>
   )
 }
