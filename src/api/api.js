@@ -1,7 +1,7 @@
 const API = import.meta.env.VITE_API_URL
 
-const getEvents = async () => {
-  const res = await fetch(`${API}/events`)
+const getSeries = async () => {
+  const res = await fetch(`${API}/series`)
   return res.json()
 }
 
@@ -10,4 +10,4 @@ const getPreachings = async () => {
   return res.json()
 }
 
-export { getEvents, getPreachings }
+export { getSeries, getPreachings }

@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom'
 
 const Links = [
   { name: 'Home', path: '/' },
-  { name: 'Eventos', path: '/events' },
+  { name: 'Series', path: '/series' },
   { name: 'Predicaciones', path: '/preachings' },
   { name: 'Conócenos', path: '/about' },
   { name: 'Login', path: '/auth' },
