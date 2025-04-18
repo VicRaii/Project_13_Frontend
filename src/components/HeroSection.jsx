@@ -38,18 +38,18 @@ const HeroSection = () => {
           <Button
             colorScheme='teal'
             as={RouterLink}
-            to='/events'
+            to='/series'
             size='lg'
             px={8}
           >
-            Ver próximos eventos
+            Ver Series de Predicaciones
           </Button>
         </Box>
 
         {/* IMAGEN */}
         <Box flex='1' display='flex' justifyContent='center'>
           <Image
-            src='/assets/IECicon.png' // Asegúrate que esta imagen esté en public/
+            src='/assets/IECicon.png'
             alt='Iglesia Evángelica de Cabra'
             boxSize={{ base: '200px', md: '300px' }}
             objectFit='contain'

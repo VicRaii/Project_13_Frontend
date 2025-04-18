@@ -8,6 +8,7 @@ const Preachings = () => {
     const fetchPreachings = async () => {
       try {
         const data = await getPreachings()
+        console.log('Datos de predicaciones:', data) // Verifica los datos aquí
         setPreachings(data)
       } catch (error) {
         console.error('Error fetching preachings:', error)
@@ -25,12 +26,15 @@ const Preachings = () => {
           <li key={p._id}>
             <h4>{p.title}</h4>
             <p>
-              <strong>Predicador:</strong> {p.preacher}
+              <strong>Predicador:</strong> {p.preacher || 'No especificado'}
             </p>
             <p>
-              <strong>Fecha:</strong> {new Date(p.date).toLocaleDateString()}
+              <strong>Fecha:</strong>{' '}
+              {p.date
+                ? new Date(p.date).toLocaleDateString()
+                : 'Fecha no disponible'}
             </p>
-            <p>{p.content}</p>
+            <p>{p.content || 'Sin descripción disponible.'}</p>
             {p.videoUrl && (
               <a href={p.videoUrl} target='_blank' rel='noopener noreferrer'>
                 Ver video

@@ -61,10 +61,8 @@ const Series = () => {
                 <Heading size='md'>{serie.title}</Heading>
                 <Text fontSize='sm'>{serie.description}</Text>
                 <Button
-                  as='a'
-                  href={serie.videoURL}
-                  target='_blank'
-                  rel='noopener noreferrer'
+                  as={Link}
+                  to={`/series/${serie._id}`}
                   colorScheme='teal'
                   variant='solid'
                   size='sm'
