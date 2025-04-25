@@ -15,7 +15,6 @@ import { Link } from 'react-router-dom'
 const Links = [
   { name: 'Home', path: '/' },
   { name: 'Series', path: '/series' },
-  // { name: 'Predicaciones', path: '/preachings' },
   { name: 'Conócenos', path: '/about' },
   { name: 'Login', path: '/auth' },
   { name: 'Contacto', path: '/contact' }
@@ -54,7 +53,11 @@ const Navbar = () => {
         mx='auto'
       >
         <Link to='/'>
-          <Image src='/assets/IECicon.png' alt='Logo' boxSize='50px' />
+          <Image
+            src='/assets/IECicon.png'
+            alt='Logo Iglesia Evangélica de Cabra'
+            boxSize='50px'
+          />
         </Link>
 
         <IconButton

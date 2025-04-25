@@ -9,7 +9,8 @@ import {
   Stack,
   Icon,
   Divider,
-  Link
+  Link,
+  Image
 } from '@chakra-ui/react'
 import { AiOutlineMail, AiOutlineInfoCircle } from 'react-icons/ai'
 import React from 'react'
@@ -80,20 +81,28 @@ const About = () => {
       <Box
         bgImage="url('/assets/AboutBG.jpg')"
         bgSize='cover'
-        bgPosition='center'
+        bgPosition='center '
         bgRepeat='no-repeat'
-        filter={'opacity(0.8)'}
-        color='brand.500'
-        py={20}
-        textAlign='center'
+        filter={'opacity(0.9)'}
+        py={60}
       >
-        <Heading fontSize={['3xl', '5xl']} mb={4}>
-          Conócenos
-        </Heading>
-        <Text fontSize='xl' maxW='2xl' mx='auto'>
-          Somos una Iglesia que busca amar y servir a Dios y a las personas
-          llevando el mensaje de vida y esperanza que hay en Jesucristo.
-        </Text>
+        <Box
+          position={'absolute'}
+          bottom={0}
+          left={0}
+          right={0}
+          color='brand.500'
+          textAlign='center'
+          bg={'whiteAlpha.800'}
+        >
+          <Heading fontSize={['3xl', '5xl']} mb={4}>
+            Conócenos
+          </Heading>
+          <Text fontSize='xl' maxW='2xl' mx='auto'>
+            Somos una Iglesia que busca amar y servir a Dios y a las personas
+            llevando el mensaje de vida y esperanza que hay en Jesucristo.
+          </Text>
+        </Box>
       </Box>
 
       {/* INFO SECTION */}
@@ -150,24 +159,55 @@ const About = () => {
           </SimpleGrid>
 
           <Divider />
-
-          <Stack spacing={2} pt={6}>
-            <Heading as='h2' size='lg'>
-              <Icon as={AiOutlineInfoCircle} mr={2} />
-              Contacto
-            </Heading>
-            <Text>
-              <Icon as={AiOutlineMail} mr={2} />
-              <Link
-                href='mailto:iglesiaevangelicacabra@gmail.com'
-                color='teal'
-                isExternal
-              >
-                iglesiaevangelicacabra@gmail.com
-              </Link>
-            </Text>
-          </Stack>
         </VStack>
+
+        {/* Información antes del footer */}
+        <Box bg='gray.50' py={10} px={6}>
+          <SimpleGrid
+            columns={{ base: 1, md: 3 }}
+            spacing={30}
+            alignItems='center'
+            textAlign='center'
+          >
+            {/* Columna 1: Bienvenida */}
+            <Box>
+              <Image
+                src='/assets/IECicon2.png' // Cambia por la ruta de tu logo
+                alt='Logo Iglesia'
+                mx='auto'
+                mb={4}
+                boxSize='100px'
+                objectFit='contain'
+              />
+              <Text fontSize='md' color='gray.600'>
+                Bienvenido a tu casa, bienvenido al lugar donde conocerás un
+                mensaje de esperanza que transforma vidas.
+              </Text>
+            </Box>
+
+            {/* Columna 3: Contactar */}
+            <Box>
+              <Heading size='md' color='teal.600' mb={4}>
+                Contactar
+              </Heading>
+              <Text fontSize='md' color='gray.600'>
+                Antiguo Centro Cívico de la Barriada, Final de la Calle San
+                Isidro s/n,
+                <br />
+                Cabra, Spain, 14940
+                <br />
+                +34 696 331 326
+                <br />
+                <a
+                  href='mailto:iglesiaevangelicacabra@gmail.com'
+                  style={{ color: 'teal' }}
+                >
+                  iglesiaevangelicacabra@gmail.com
+                </a>
+              </Text>
+            </Box>
+          </SimpleGrid>
+        </Box>
       </Container>
     </>
   )

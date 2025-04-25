@@ -49,7 +49,7 @@ const SerieDetail = () => {
   }
 
   return (
-    <Box p={6}>
+    <Box p={6} textAlign={'center'}>
       <Heading mb={4}>{serie.title}</Heading>
       <Text mb={6}>{serie.description}</Text>
 

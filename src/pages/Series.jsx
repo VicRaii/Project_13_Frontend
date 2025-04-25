@@ -33,7 +33,7 @@ const Series = () => {
   }, [])
 
   return (
-    <Box p={6}>
+    <Box p={6} textAlign={'center'}>
       <Heading mb={6}>Series de Predicaciones</Heading>
       {loading ? (
         <Spinner size='xl' />
@@ -57,7 +57,7 @@ const Series = () => {
                 w='100%'
                 h='200px'
               />
-              <VStack align='start' mt={4} spacing={2}>
+              <VStack align='center' mt={4} spacing={2}>
                 <Heading size='md'>{serie.title}</Heading>
                 <Text fontSize='sm'>{serie.description}</Text>
                 <Button
