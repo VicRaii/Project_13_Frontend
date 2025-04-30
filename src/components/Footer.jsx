@@ -1,38 +1,99 @@
 import {
   Box,
-  chakra,
   Container,
   Stack,
   Text,
-  VisuallyHidden,
-  useColorModeValue
+  useColorModeValue,
+  SimpleGrid,
+  Image,
+  Heading,
+  HStack,
+  Link,
+  IconButton
 } from '@chakra-ui/react'
 import { FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa'
 
-const SocialButton = ({ children, label, href }) => {
-  return (
-    <chakra.button
-      bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
-      rounded={'full'}
-      w={8}
-      h={8}
-      cursor={'pointer'}
-      as={'a'}
-      href={href}
-      target='_blank'
-      display={'inline-flex'}
-      alignItems={'center'}
-      justifyContent={'center'}
-      transition={'background 0.3s ease'}
-      _hover={{
-        bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200')
-      }}
+const FooterContent = () => (
+  <Box bg={useColorModeValue('gray.50', 'gray.800')} py={10} px={6}>
+    <SimpleGrid
+      columns={{ base: 1, md: 3 }}
+      spacing={10}
+      alignItems='flex-start'
+      textAlign='center'
     >
-      <VisuallyHidden>{label}</VisuallyHidden>
-      {children}
-    </chakra.button>
-  )
-}
+      <Box>
+        <Image
+          src='/assets/IECicon2.png'
+          alt='Logo Iglesia'
+          mx='auto'
+          mb={4}
+          boxSize='100px'
+          objectFit='contain'
+        />
+        <Text fontSize='md' color='gray.600'>
+          Bienvenido a tu casa, bienvenido al lugar donde conocerás un mensaje
+          de esperanza.
+        </Text>
+      </Box>
+
+      <Box>
+        <HStack spacing={4} flexDirection={'column'} justifyContent='center'>
+          <Link
+            href='https://www.facebook.com/Iglesiaevangelicadecabra'
+            isExternal
+          >
+            <IconButton
+              icon={<FaFacebook />}
+              aria-label='Facebook'
+              variant='ghost'
+              size='lg'
+            />
+          </Link>
+          <Link
+            href='https://www.youtube.com/@iglesiaevangelicadecabra8049'
+            isExternal
+          >
+            <IconButton
+              icon={<FaYoutube />}
+              aria-label='YouTube'
+              variant='ghost'
+              size='lg'
+            />
+          </Link>
+          <Link
+            href='https://www.instagram.com/iglesia_evangelica_de_cabra/'
+            isExternal
+          >
+            <IconButton
+              icon={<FaInstagram />}
+              aria-label='Instagram'
+              variant='ghost'
+              size='lg'
+            />
+          </Link>
+        </HStack>
+      </Box>
+
+      <Box>
+        <Heading size='md' color='teal.600' mb={4}>
+          Contactar
+        </Heading>
+        <Text fontSize='md' color='gray.600'>
+          Antiguo Centro Cívico de la Barriada, Final de la Calle San Isidro
+          s/n,
+          <br />
+          Cabra, Spain, 14940
+          <br />
+          +34 696 331 326
+          <br />
+          <Link href='mailto:iglesiaevangelicacabra@gmail.com' color='teal'>
+            iglesiaevangelicacabra@gmail.com
+          </Link>
+        </Text>
+      </Box>
+    </SimpleGrid>
+  </Box>
+)
 
 export default function Footer() {
   return (
@@ -40,44 +101,17 @@ export default function Footer() {
       bg={useColorModeValue('gray.100', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}
     >
+      <FooterContent />
       <Box
         borderTopWidth={1}
-        borderStyle={'solid'}
+        borderStyle='solid'
         borderColor={useColorModeValue('gray.200', 'gray.700')}
       >
-        <Container
-          as={Stack}
-          maxW={'6xl'}
-          py={4}
-          direction={{ base: 'column', md: 'row' }}
-          spacing={4}
-          justify={{ base: 'center', md: 'space-between' }}
-          align={{ base: 'center', md: 'center' }}
-        >
+        <Container as={Stack} maxW='6xl' py={4} textAlign='center'>
           <Text>
             © {new Date().getFullYear()} Iglesia Evangélica de Cabra. Todos los
             derechos reservados.
           </Text>
-          <Stack direction={'row'} spacing={6}>
-            <SocialButton
-              label={'Facebook'}
-              href={'https://www.facebook.com/Iglesiaevangelicadecabra'}
-            >
-              <FaFacebook />
-            </SocialButton>
-            <SocialButton
-              label={'Instagram'}
-              href={'https://www.instagram.com/iglesia_evangelica_de_cabra/'}
-            >
-              <FaInstagram />
-            </SocialButton>
-            <SocialButton
-              label={'YouTube'}
-              href={'https://www.youtube.com/@iglesiaevangelicadecabra8049'}
-            >
-              <FaYoutube />
-            </SocialButton>
-          </Stack>
         </Container>
       </Box>
     </Box>

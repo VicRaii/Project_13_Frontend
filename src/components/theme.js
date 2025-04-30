@@ -8,14 +8,14 @@ const theme = extendTheme({
       200: '#9edcd1',
       300: '#78ccbd',
       400: '#4fbdab',
-      500: '#36a392', // Verde medio (logo)
+      500: '#36a392',
       600: '#2a8073',
       700: '#1e5e54',
       800: '#123d36',
       900: '#061d19'
     },
     accent: {
-      500: '#0077b6' // Azul del logo
+      500: '#0077b6'
     }
   }
 })

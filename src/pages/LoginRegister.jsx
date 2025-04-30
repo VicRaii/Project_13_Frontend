@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form'
 import { useReducer } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authReducer, initialState } from '../hooks/authReducer'
+import { useAuth } from '../hooks/AuthContext'
 
 const LoginRegister = () => {
   const [state, dispatch] = useReducer(authReducer, initialState)
@@ -18,6 +19,7 @@ const LoginRegister = () => {
   const { register, handleSubmit, reset } = useForm()
   const toast = useToast()
   const navigate = useNavigate()
+  const { setUser } = useAuth()
 
   const onSubmit = async (data) => {
     dispatch({ type: 'SET_LOADING', payload: true })
@@ -35,7 +37,6 @@ const LoginRegister = () => {
       })
 
       const result = await res.json()
-
       if (!res.ok) throw new Error(result.message || 'Error')
 
       toast({
@@ -45,8 +46,13 @@ const LoginRegister = () => {
         isClosable: true
       })
 
+      if (isLogin) {
+        localStorage.setItem('token', result.token)
+        setUser({ token: result.token })
+      }
+
       reset()
-      navigate('/events')
+      navigate('/series')
     } catch (err) {
       toast({
         title: 'Error',
@@ -61,7 +67,17 @@ const LoginRegister = () => {
   }
 
   return (
-    <Box maxW='400px' mx='auto' mt={10} p={6} boxShadow='lg' borderRadius='xl'>
+    <Box
+      maxW='500px'
+      h='400px'
+      bg='white'
+      alignContent={'center'}
+      mx='auto'
+      mt={10}
+      p={6}
+      boxShadow='lg'
+      borderRadius='xl'
+    >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={4}>
           {!isLogin && (

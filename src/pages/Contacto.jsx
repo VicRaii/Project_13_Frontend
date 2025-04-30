@@ -1,20 +1,27 @@
-// src/components/ContactForm.jsx
 import {
   Box,
+  SimpleGrid,
+  Heading,
+  Text,
+  Input,
+  Textarea,
   Button,
   FormControl,
   FormLabel,
-  Input,
-  Textarea,
+  FormErrorMessage,
   VStack,
+  HStack,
+  IconButton,
+  Link,
   useToast,
   Spinner
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
+import { FaFacebook, FaYoutube, FaInstagram } from 'react-icons/fa'
 import axios from 'axios'
 
-export const ContactForm = () => {
+const ContactPage = () => {
   const {
     register,
     handleSubmit,
@@ -28,7 +35,6 @@ export const ContactForm = () => {
     setIsLoading(true)
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/contact`, data)
-
       toast({
         title: 'Mensaje enviado.',
         description: 'Gracias por contactarnos.',
@@ -36,7 +42,6 @@ export const ContactForm = () => {
         duration: 4000,
         isClosable: true
       })
-
       reset()
     } catch (error) {
       toast({
@@ -52,48 +57,132 @@ export const ContactForm = () => {
   }
 
   return (
-    <Box p={6} bg='white' boxShadow='md' borderRadius='xl'>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <VStack spacing={4}>
-          <FormControl isInvalid={errors.name}>
-            <FormLabel>Nombre</FormLabel>
-            <Input
-              placeholder='Tu nombre'
-              {...register('name', { required: 'El nombre es obligatorio' })}
-            />
-          </FormControl>
+    <Box p={8} bg='blue.50' minH='100vh'>
+      <Heading textAlign='center' fontSize='4xl' color='orange.400' mb={4}>
+        ¿Tienes alguna pregunta?
+      </Heading>
+      <Text textAlign='center' fontSize='lg' color='gray.700' mb={10}>
+        Por favor, no dudes en ponerte en contacto con nosotros sea cual sea tu
+        duda o necesidad. Estamos para servirte.
+      </Text>
 
-          <FormControl isInvalid={errors.email}>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type='email'
-              placeholder='correo@ejemplo.com'
-              {...register('email', { required: 'El email es obligatorio' })}
-            />
-          </FormControl>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+        <VStack align='start' spacing={6}>
+          <Box>
+            <Heading fontSize='2xl' mb={2}>
+              Contactar
+            </Heading>
+            <Text fontSize='md' color='gray.600'>
+              Información general
+            </Text>
+            <Text mt={3} fontWeight='bold' color='orange.400'>
+              +34 696 331 326
+            </Text>
+            <Text mt={1} color='orange.400'>
+              iglesiaevangelicacabra@gmail.com
+            </Text>
+          </Box>
 
-          <FormControl isInvalid={errors.message}>
-            <FormLabel>Mensaje</FormLabel>
-            <Textarea
-              placeholder='Escribe tu mensaje'
-              {...register('message', {
-                required: 'El mensaje es obligatorio'
-              })}
-            />
-          </FormControl>
-
-          <Button
-            type='submit'
-            colorScheme='teal'
-            width='full'
-            isDisabled={isLoading}
-          >
-            {isLoading ? <Spinner size='sm' /> : 'Enviar'}
-          </Button>
+          <Box>
+            <Heading fontSize='lg' mb={4}>
+              Redes Sociales
+            </Heading>
+            <HStack spacing={4}>
+              <Link
+                href='https://www.facebook.com/Iglesiaevangelicadecabra'
+                isExternal
+              >
+                <IconButton
+                  icon={<FaFacebook />}
+                  aria-label='Facebook'
+                  variant='ghost'
+                  size='lg'
+                />
+              </Link>
+              <Link
+                href='https://www.youtube.com/@iglesiaevangelicadecabra8049'
+                isExternal
+              >
+                <IconButton
+                  icon={<FaYoutube />}
+                  aria-label='YouTube'
+                  variant='ghost'
+                  size='lg'
+                />
+              </Link>
+              <Link
+                href='https://www.instagram.com/iglesia_evangelica_de_cabra/'
+                isExternal
+              >
+                <IconButton
+                  icon={<FaInstagram />}
+                  aria-label='Instagram'
+                  variant='ghost'
+                  size='lg'
+                />
+              </Link>
+            </HStack>
+          </Box>
         </VStack>
-      </form>
+
+        <Box bg='white' p={6} borderRadius='xl' boxShadow='md'>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <VStack spacing={4}>
+              <FormControl isInvalid={errors.name} isRequired>
+                <FormLabel>Nombre</FormLabel>
+                <Input
+                  placeholder='Tu nombre'
+                  {...register('name', {
+                    required: 'El nombre es obligatorio'
+                  })}
+                />
+                <FormErrorMessage>
+                  {errors.name && errors.name.message}
+                </FormErrorMessage>
+              </FormControl>
+
+              <FormControl isInvalid={errors.email} isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  type='email'
+                  placeholder='correo@ejemplo.com'
+                  {...register('email', {
+                    required: 'El email es obligatorio'
+                  })}
+                />
+                <FormErrorMessage>
+                  {errors.email && errors.email.message}
+                </FormErrorMessage>
+              </FormControl>
+
+              <FormControl isInvalid={errors.message} isRequired>
+                <FormLabel>Mensaje</FormLabel>
+                <Textarea
+                  placeholder='Escribe tu mensaje'
+                  rows={5}
+                  {...register('message', {
+                    required: 'El mensaje es obligatorio'
+                  })}
+                />
+                <FormErrorMessage>
+                  {errors.message && errors.message.message}
+                </FormErrorMessage>
+              </FormControl>
+
+              <Button
+                type='submit'
+                colorScheme='teal'
+                width='full'
+                isDisabled={isLoading}
+              >
+                {isLoading ? <Spinner size='sm' /> : 'Enviar'}
+              </Button>
+            </VStack>
+          </form>
+        </Box>
+      </SimpleGrid>
     </Box>
   )
 }
 
-export default ContactForm
+export default ContactPage

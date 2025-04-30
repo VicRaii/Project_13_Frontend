@@ -1,4 +1,3 @@
-// src/pages/Series.jsx
 import React, { useEffect, useState } from 'react'
 import {
   Box,

@@ -9,23 +9,24 @@ import {
   Stack,
   Image
 } from '@chakra-ui/react'
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai' // Importa los íconos de react-icons
-import { Link } from 'react-router-dom'
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
+import { Link, useLocation } from 'react-router-dom'
+import { useAuth } from '../hooks/AuthContext'
 
 const Links = [
   { name: 'Home', path: '/' },
-  { name: 'Series', path: '/series' },
-  { name: 'Conócenos', path: '/about' },
-  { name: 'Login', path: '/auth' },
-  { name: 'Contacto', path: '/contact' }
+  { name: 'Series', path: '/series', requiredAuth: true },
+  { name: 'Conócenos', path: '/about', requiredAuth: true },
+  { name: 'Contacto', path: '/contact', requiredAuth: true },
+  { name: 'Login', path: '/auth', hideWhenAuth: true }
 ]
 
-const NavLink = ({ name, path }) => (
+const NavLink = ({ name, path, isActive }) => (
   <Button
     as={Link}
     to={path}
-    variant='ghost'
-    colorScheme='teal'
+    variant={isActive ? 'solid' : 'ghost'}
+    colorScheme={isActive ? 'teal' : 'gray'}
     fontWeight='medium'
     _hover={{ bg: useColorModeValue('gray.100', 'gray.700') }}
   >
@@ -35,6 +36,19 @@ const NavLink = ({ name, path }) => (
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { user, setUser } = useAuth()
+  const location = useLocation()
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    setUser(null)
+  }
+
+  const visibleLinks = Links.filter((link) => {
+    if (link.requiredAuth && !user) return false
+    if (link.hideWhenAuth && user) return false
+    return true
+  })
 
   return (
     <Box
@@ -69,21 +83,41 @@ const Navbar = () => {
         />
 
         <HStack spacing={4} display={{ base: 'none', md: 'flex' }}>
-          {Links.map((link) => (
-            <NavLink key={link.name} {...link} />
+          {visibleLinks.map((link) => (
+            <NavLink
+              key={link.name}
+              name={link.name}
+              path={link.path}
+              isActive={location.pathname === link.path}
+            />
           ))}
+          {user && (
+            <Button onClick={handleLogout} colorScheme='red' variant='ghost'>
+              Cerrar sesión
+            </Button>
+          )}
         </HStack>
       </Flex>
 
-      {isOpen ? (
+      {isOpen && (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack spacing={2}>
-            {Links.map((link) => (
-              <NavLink key={link.name} {...link} />
+            {visibleLinks.map((link) => (
+              <NavLink
+                key={link.name}
+                name={link.name}
+                path={link.path}
+                isActive={location.pathname === link.path}
+              />
             ))}
+            {user && (
+              <Button onClick={handleLogout} colorScheme='red' variant='ghost'>
+                Cerrar sesión
+              </Button>
+            )}
           </Stack>
         </Box>
-      ) : null}
+      )}
     </Box>
   )
 }
