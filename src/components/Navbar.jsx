@@ -78,7 +78,7 @@ const Navbar = () => {
           size='md'
           icon={isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
           aria-label='Open Menu'
-          display='flex'
+          display={{ base: 'flex', md: 'none' }}
           justifyContent='center'
           alignItems='center'
           onClick={isOpen ? onClose : onOpen}
