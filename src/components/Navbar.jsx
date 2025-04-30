@@ -78,8 +78,13 @@ const Navbar = () => {
           size='md'
           icon={isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
           aria-label='Open Menu'
-          display={{ md: 'none' }}
+          display='flex'
+          justifyContent='center'
+          alignItems='center'
           onClick={isOpen ? onClose : onOpen}
+          variant='ghost'
+          colorScheme='teal'
+          _hover={{ bg: useColorModeValue('gray.100', 'gray.700') }}
         />
 
         <HStack spacing={4} display={{ base: 'none', md: 'flex' }}>
