@@ -66,7 +66,7 @@ const About = () => {
           <Heading as='h2' size='lg'>
             ✨ Misión
           </Heading>
-          <Text>
+          <Text textAlign='center'>
             Inspirar y empoderar a las personas a vivir conforme al propósito
             que Dios tiene para ellos.
           </Text>
@@ -74,7 +74,7 @@ const About = () => {
           <Heading as='h2' size='lg'>
             🔭 Visión
           </Heading>
-          <Text>
+          <Text textAlign='center'>
             Ser una comunidad vibrante y acogedora donde cada persona pueda
             crecer espiritualmente y servir con amor.
           </Text>
@@ -82,7 +82,9 @@ const About = () => {
           <Heading as='h2' size='lg'>
             💖 Valores
           </Heading>
-          <Text>• Amor • Fe • Unidad • Servicio • Integridad</Text>
+          <Text textAlign='center'>
+            • Amor • Fe • Unidad • Servicio • Integridad
+          </Text>
 
           <VerseOfTheDay apiKey={import.meta.env.VITE_BIBLE_API_KEY} />
 
