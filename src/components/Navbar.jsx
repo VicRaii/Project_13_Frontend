@@ -9,7 +9,7 @@ import {
   Stack,
   Image
 } from '@chakra-ui/react'
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlineCrown, AiOutlineMenu } from 'react-icons/ai'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../hooks/AuthContext'
 
@@ -96,6 +96,28 @@ const Navbar = () => {
               isActive={location.pathname === link.path}
             />
           ))}
+
+          {user?.role === 'admin' && (
+            <Button
+              as={Link}
+              to='/admin'
+              leftIcon={<AiOutlineCrown />}
+              colorScheme='yellow'
+              variant={location.pathname === '/admin' ? 'solid' : 'outline'}
+              boxShadow='0 0 8px 2px #ECC94B'
+              borderWidth={location.pathname === '/admin' ? 2 : 1}
+              borderColor='yellow.400'
+              fontWeight='bold'
+              _hover={{
+                bg: 'yellow.300',
+                color: 'gray.800',
+                boxShadow: '0 0 16px 4px #ECC94B'
+              }}
+            >
+              Admin
+            </Button>
+          )}
+
           {user && (
             <Button onClick={handleLogout} colorScheme='red' variant='ghost'>
               Cerrar sesión
@@ -115,6 +137,26 @@ const Navbar = () => {
                 isActive={location.pathname === link.path}
               />
             ))}
+            {user?.role === 'admin' && (
+              <Button
+                as={Link}
+                to='/admin'
+                leftIcon={<AiOutlineCrown />}
+                colorScheme='yellow'
+                variant={location.pathname === '/admin' ? 'solid' : 'outline'}
+                boxShadow='0 0 8px 2px #ECC94B'
+                borderWidth={location.pathname === '/admin' ? 2 : 1}
+                borderColor='yellow.400'
+                fontWeight='bold'
+                _hover={{
+                  bg: 'yellow.300',
+                  color: 'gray.800',
+                  boxShadow: '0 0 16px 4px #ECC94B'
+                }}
+              >
+                Admin
+              </Button>
+            )}
             {user && (
               <Button onClick={handleLogout} colorScheme='red' variant='ghost'>
                 Cerrar sesión

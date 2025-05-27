@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Box,
   Heading,
@@ -7,29 +7,40 @@ import {
   VStack,
   Button,
   SimpleGrid,
-  Spinner
+  Spinner,
+  Toast
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { useAuth } from '../hooks/AuthContext'
 
 const Series = () => {
   const [series, setSeries] = useState([])
   const [loading, setLoading] = useState(true)
-
-  const fetchSeries = async () => {
-    try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/series`)
-      setSeries(res.data)
-    } catch (err) {
-      console.error('Error fetching series:', err)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const { user } = useAuth()
 
   useEffect(() => {
+    const fetchSeries = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/series`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`
+          }
+        })
+        setSeries(res.data)
+      } catch {
+        Toast({
+          title: 'Error al cargar las series',
+          status: 'error',
+          duration: 4000,
+          isClosable: true
+        })
+      } finally {
+        setLoading(false)
+      }
+    }
     fetchSeries()
-  }, [])
+  }, [user.token])
 
   return (
     <Box p={6} textAlign={'center'}>

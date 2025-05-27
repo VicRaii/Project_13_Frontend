@@ -1,6 +1,5 @@
-import React from 'react'
 import { Box } from '@chakra-ui/react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import About from './pages/About'
@@ -10,8 +9,13 @@ import Footer from './components/Footer'
 import Series from './pages/Series'
 import SeriesDetail from './components/SeriesDetail'
 import ProtectedRoute from './components/ProtectedRoute'
+import { useAuth } from './hooks/AuthContext'
+import AdminPanel from './pages/admin/AdminPanel'
 
 const App = () => {
+  const { user } = useAuth()
+  console.log('User:', user)
+
   return (
     <BrowserRouter>
       <Navbar />
@@ -42,6 +46,17 @@ const App = () => {
               <ProtectedRoute>
                 <ContactPage />
               </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path='/admin'
+            element={
+              user?.role === 'admin' ? (
+                <AdminPanel />
+              ) : (
+                <Navigate to='/' replace />
+              )
             }
           />
         </Routes>

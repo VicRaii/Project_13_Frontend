@@ -48,7 +48,16 @@ const LoginRegister = () => {
 
       if (isLogin) {
         localStorage.setItem('token', result.token)
-        setUser({ token: result.token })
+        localStorage.setItem('role', result.user.role)
+        console.log('LOGIN RESULT:', result)
+
+        setUser({ token: result.token, role: result.user.role })
+
+        console.log('Usuario autenticado:', {
+          token: result.token,
+          email: result.user.email,
+          role: result.user.role
+        })
       }
 
       reset()
