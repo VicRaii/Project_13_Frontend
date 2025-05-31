@@ -24,6 +24,7 @@ const SeriesManager = () => {
   const [loading, setLoading] = useState(true)
   const [editingSeries, setEditingSeries] = useState(null)
   const [selectedSeries, setSelectedSeries] = useState(null)
+  const formRef = useRef(null)
   const toast = useToast()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -86,11 +87,13 @@ const SeriesManager = () => {
         Gestión de Series
       </Heading>
 
-      <SeriesForm
-        onSaved={fetchSeries}
-        series={editingSeries}
-        onCancel={() => setEditingSeries(null)}
-      />
+      <Box ref={formRef}>
+        <SeriesForm
+          onSaved={fetchSeries}
+          series={editingSeries}
+          onCancel={() => setEditingSeries(null)}
+        />
+      </Box>
 
       {loading ? (
         <Spinner size='lg' />
@@ -106,7 +109,16 @@ const SeriesManager = () => {
                 <Flex gap={2}>
                   <Button
                     colorScheme='blue'
-                    onClick={() => setEditingSeries(s)}
+                    onClick={() => {
+                      setEditingSeries(s)
+                      setTimeout(() => {
+                        const topOffset = formRef.current?.offsetTop || 0
+                        window.scrollTo({
+                          top: topOffset - 60,
+                          behavior: 'smooth'
+                        })
+                      }, 100)
+                    }}
                   >
                     Editar
                   </Button>
@@ -120,7 +132,6 @@ const SeriesManager = () => {
         </Stack>
       )}
 
-      {/* Modal de confirmación */}
       <AlertDialog
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}

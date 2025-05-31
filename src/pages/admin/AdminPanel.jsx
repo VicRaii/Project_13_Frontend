@@ -1,7 +1,6 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import SeriesManager from './SeriesManager'
-// import PredicacionesManager from './PredicacionesManager'
-// import UsersManager from './UsersManager'
+import PreachingsManager from './PreachingsManager'
 
 const AdminPanel = () => {
   return (
@@ -15,7 +14,7 @@ const AdminPanel = () => {
         <TabPanel>
           <SeriesManager />
         </TabPanel>
-        <TabPanel>{/* <PredicacionesManager /> */}</TabPanel>
+        <TabPanel>{<PreachingsManager />}</TabPanel>
         <TabPanel>{/* <UsersManager /> */}</TabPanel>
       </TabPanels>
     </Tabs>
