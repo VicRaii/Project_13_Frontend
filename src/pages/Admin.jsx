@@ -66,7 +66,6 @@ const Admin = () => {
           Authorization: `Bearer ${user.token}`
         }
       })
-      // Eliminar la serie del estado
       setSeries((prevSeries) => prevSeries.filter((serie) => serie._id !== id))
     } catch (error) {
       console.error('Error al eliminar la serie:', error)

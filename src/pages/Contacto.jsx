@@ -155,6 +155,15 @@ const ContactPage = () => {
                 </FormErrorMessage>
               </FormControl>
 
+              <FormControl mb={4} isRequired>
+                <FormLabel>Teléfono</FormLabel>
+                <Input
+                  type='tel'
+                  placeholder='Teléfono de contacto'
+                  {...register('phone')}
+                />
+              </FormControl>
+
               <FormControl isInvalid={errors.message} isRequired>
                 <FormLabel>Mensaje</FormLabel>
                 <Textarea
