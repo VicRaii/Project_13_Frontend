@@ -220,5 +220,3 @@ const PreachingsManager = () => {
 }
 
 export default PreachingsManager
-
-//! SIGUIENTE PASO: QUIERO QUE AL LADO DE CADA PREACHING APAREZCA LA SERIE A LA QUE PERTENECE.

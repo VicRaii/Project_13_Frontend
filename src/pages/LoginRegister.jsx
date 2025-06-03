@@ -23,45 +23,35 @@ const LoginRegister = () => {
 
   const onSubmit = async (data) => {
     dispatch({ type: 'SET_LOADING', payload: true })
+
     try {
-      const url = `${import.meta.env.VITE_API_URL}${
-        isLogin ? '/users/login' : '/users/register'
-      }`
-
-      const payload = isLogin ? data : { ...data, userName: data.userName }
-
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-
-      const result = await res.json()
-      if (!res.ok) throw new Error(result.message || 'Error')
-
-      toast({
-        title: isLogin ? 'Login exitoso' : 'Registro exitoso',
-        status: 'success',
-        duration: 3000,
-        isClosable: true
-      })
-
       if (isLogin) {
-        localStorage.setItem('token', result.token)
-        localStorage.setItem('role', result.user.role)
-        console.log('LOGIN RESULT:', result)
+        await loginUser(data)
+      } else {
+        const registerRes = await fetch(
+          `${import.meta.env.VITE_API_URL}/users/register`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...data, userName: data.userName })
+          }
+        )
 
-        setUser({ token: result.token, role: result.user.role })
+        const registerResult = await registerRes.json()
+        if (!registerRes.ok)
+          throw new Error(registerResult.message || 'Error al registrarse')
 
-        console.log('Usuario autenticado:', {
-          token: result.token,
-          email: result.user.email,
-          role: result.user.role
+        toast({
+          title: 'Registro exitoso',
+          status: 'success',
+          duration: 3000,
+          isClosable: true
         })
+
+        await loginUser({ email: data.email, password: data.password })
       }
 
       reset()
-      navigate('/series')
     } catch (err) {
       toast({
         title: 'Error',
@@ -72,6 +62,41 @@ const LoginRegister = () => {
       })
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false })
+    }
+  }
+
+  const loginUser = async ({ email, password }) => {
+    const loginRes = await fetch(
+      `${import.meta.env.VITE_API_URL}/users/login`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      }
+    )
+
+    const loginResult = await loginRes.json()
+    if (!loginRes.ok)
+      throw new Error(loginResult.message || 'Error al iniciar sesión')
+
+    const { token, user } = loginResult
+
+    localStorage.setItem('token', token)
+    localStorage.setItem('role', user.role)
+
+    setUser({ token, role: user.role })
+
+    toast({
+      title: 'Login exitoso',
+      status: 'success',
+      duration: 3000,
+      isClosable: true
+    })
+
+    if (user.role === 'admin') {
+      navigate('/admin')
+    } else {
+      navigate('/series')
     }
   }
 

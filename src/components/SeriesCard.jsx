@@ -37,21 +37,26 @@ const SeriesCard = ({ title, date, preacher, description, videoUrl }) => {
   return (
     <>
       <Box
-        p={4}
+        border='2px solid red'
+        display='flex'
+        flexDirection='column'
+        justifyContent='space-between'
+        height='100%'
         borderWidth='1px'
         borderRadius='xl'
         boxShadow='md'
         bg='white'
-        transition='transform 0.2s ease, box-shadow 0.2s ease'
+        p={4}
+        transition='all 0.2s ease'
         _hover={{ transform: 'scale(1.02)', boxShadow: 'xl' }}
         cursor='pointer'
         onClick={onOpen}
       >
-        <Box position='relative' mb={4}>
+        <Box position='relative'>
           <Image
             src={thumbnail}
             alt={`Miniatura de ${title}`}
-            borderRadius='md'
+            borderTopRadius='xl'
             w='100%'
             h='200px'
             objectFit='cover'
@@ -63,7 +68,7 @@ const SeriesCard = ({ title, date, preacher, description, videoUrl }) => {
             w='100%'
             h='100%'
             bg='rgba(0, 0, 0, 0.3)'
-            borderRadius='md'
+            borderRadius='inherit'
             opacity={0}
             _hover={{ opacity: 1 }}
             transition='opacity 0.3s'
@@ -72,16 +77,14 @@ const SeriesCard = ({ title, date, preacher, description, videoUrl }) => {
           </Center>
         </Box>
 
-        <VStack align='start' spacing={2}>
+        <VStack align='start' spacing={2} flex='1'>
           <Heading size='md'>{title}</Heading>
           <Text fontSize='sm' color='gray.600'>
             {preacher} – {new Date(date).toLocaleDateString()}
           </Text>
-          {description && (
-            <Text fontSize='sm' color='gray.700' noOfLines={3}>
-              {description}
-            </Text>
-          )}
+          <Text fontSize='sm' color='gray.700' noOfLines={3} minH='60px'>
+            {description}
+          </Text>
         </VStack>
       </Box>
 

@@ -1,13 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import {
-  Box,
-  Heading,
-  Text,
-  Stack,
-  Button,
-  Spinner,
-  SimpleGrid
-} from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import { Box, Heading, Text, Spinner, SimpleGrid } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import SeriesCard from './SeriesCard'
 
@@ -58,9 +50,11 @@ const SerieDetail = () => {
       </Heading>
 
       {serie.preachings?.length ? (
-        <SimpleGrid columns={[1, 2, 3]} spacing={6}>
+        <SimpleGrid columns={[1, 2, 3]} spacing={6} alignItems='stretch'>
           {serie.preachings.map((preaching) => (
-            <SeriesCard key={preaching._id} {...preaching} />
+            <Box key={preaching._id} h='100%'>
+              <SeriesCard {...preaching} />
+            </Box>
           ))}
         </SimpleGrid>
       ) : (

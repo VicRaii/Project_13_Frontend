@@ -75,7 +75,7 @@ const UsersManager = () => {
   const handleRoleChange = async (id, newRole) => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/users/${id}`, {
-        method: 'PUT', // Cambia PATCH por PUT
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${getToken()}`
@@ -144,7 +144,6 @@ const UsersManager = () => {
         </Stack>
       )}
 
-      {/* Modal de confirmación */}
       <AlertDialog
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}

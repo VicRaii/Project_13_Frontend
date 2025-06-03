@@ -60,7 +60,6 @@ const SeriesForm = ({ series, onSaved, onCancel }) => {
       })
 
       if (!series) {
-        // Si es nueva, limpia el formulario
         setTitle('')
         setDescription('')
         setImage('')

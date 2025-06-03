@@ -43,7 +43,7 @@ const VerseOfTheDay = ({ apiKey }) => {
     const fetchVerse = async () => {
       try {
         const response = await fetch(
-          `https://api.scripture.api.bible/v1/bibles/${BIBLE_ID}/search?query=${verseID}`,
+          `https://api.scripture.api.bible/v1/bibles/${BIBLE_ID}/passages/${verseID}`,
           {
             headers: {
               'api-key': apiKey
@@ -52,7 +52,10 @@ const VerseOfTheDay = ({ apiKey }) => {
         )
 
         const result = await response.json()
-        const passage = result.data.passages[0]
+        if (!result || !result.data || !result.data.content) {
+          throw new Error('No se encontró el versículo.')
+        }
+        const passage = result.data
 
         setVerseData({
           reference: passage.reference,
