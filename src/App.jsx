@@ -11,6 +11,7 @@ import SeriesDetail from './components/SeriesDetail'
 import ProtectedRoute from './components/ProtectedRoute'
 import { useAuth } from './hooks/AuthContext'
 import AdminPanel from './pages/admin/AdminPanel'
+import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
   const { user } = useAuth()
@@ -18,6 +19,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Navbar />
       <Box p={4} bg='gray.100' minH='100vh'>
         <Routes>
